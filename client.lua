@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
             local playerPed = GetPlayerPed(-1)
             if IsPedInAnyVehicle(playerPed, false) then
                 local vehicle = GetVehiclePedIsIn(playerPed, false)
-                SetEntityMaxSpeed(vehicle, speedLimit / 3.6) -- conversion from km/h to m/s
+                SetEntityMaxSpeed(vehicle, speedLimit / 3.6) -- conversion de km/h a m/s
             end
         end
     end
