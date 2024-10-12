@@ -5,7 +5,7 @@ ESX = exports["es_extended"]:getSharedObject()
 local speedLimiterActive = false
 local speedLimit = 0
 
-RegisterCommand('openSpeedLimiterMenu', function()
+openSpeedLimiterMenu = function()
     local elements = {
         {label = 'Limiter de vitesse', value = 'set_limit'},
         {label = 'Stop la limite', value = 'stop_limit'}
@@ -43,7 +43,7 @@ RegisterCommand('openSpeedLimiterMenu', function()
     end, function(data, menu)
         menu.close()
     end)
-end)
+end
 
 RegisterNetEvent('applySpeedLimit')
 AddEventHandler('applySpeedLimit', function(limit, active)
@@ -67,6 +67,15 @@ Citizen.CreateThread(function()
                 local vehicle = GetVehiclePedIsIn(playerPed, false)
                 SetEntityMaxSpeed(vehicle, speedLimit / 3.6) -- conversion from km/h to m/s
             end
+        end
+    end
+end)
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+        if IsControlJustReleased(0, 170) then -- 170 est l'ID de la touche F3
+            openSpeedLimiterMenu()
         end
     end
 end)
