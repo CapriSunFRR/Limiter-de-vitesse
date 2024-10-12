@@ -53,7 +53,7 @@ AddEventHandler('applySpeedLimit', function(limit, active)
         local playerPed = GetPlayerPed(-1)
         if IsPedInAnyVehicle(playerPed, false) then
             local vehicle = GetVehiclePedIsIn(playerPed, false)
-            SetEntityMaxSpeed(vehicle, GetVehicleHandlingFloat(vehicle, "CHandlingData", "fInitialDriveMaxFlatVel")) -- Remet la vitesse max par défaut
+            SetEntityMaxSpeed(vehicle, GetVehicleHandlingFloat(vehicle, "CHandlingData", "fInitialDriveMaxFlatVel"))
         end
     end
 end)
@@ -65,7 +65,7 @@ Citizen.CreateThread(function()
             local playerPed = GetPlayerPed(-1)
             if IsPedInAnyVehicle(playerPed, false) then
                 local vehicle = GetVehiclePedIsIn(playerPed, false)
-                SetEntityMaxSpeed(vehicle, speedLimit / 3.6) -- conversion from km/h to m/s
+                SetEntityMaxSpeed(vehicle, speedLimit / 3.6)
             end
         end
     end
@@ -74,7 +74,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if IsControlJustReleased(0, 170) then -- 170 est l'ID de la touche F3
+        if IsControlJustReleased(0, 170) then --F3 
             openSpeedLimiterMenu()
         end
     end
