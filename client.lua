@@ -22,7 +22,7 @@ RegisterCommand('openSpeedLimiterMenu', function()
             }, function(data2, menu2)
                 local speed = tonumber(data2.value)
                 if speed >= 1 and speed <= 200 then
-                    speedLimit = speed + 1
+                    speedLimit = speed
                     speedLimiterActive = true
                     ESX.ShowNotification('Limite de vitesse fixée à ' .. speed .. ' km/h')
                     TriggerServerEvent('updateSpeedLimit', speedLimit, speedLimiterActive)
@@ -49,6 +49,13 @@ RegisterNetEvent('applySpeedLimit')
 AddEventHandler('applySpeedLimit', function(limit, active)
     speedLimit = limit
     speedLimiterActive = active
+    if not active then
+        local playerPed = GetPlayerPed(-1)
+        if IsPedInAnyVehicle(playerPed, false) then
+            local vehicle = GetVehiclePedIsIn(playerPed, false)
+            SetEntityMaxSpeed(vehicle, GetVehicleHandlingFloat(vehicle, "CHandlingData", "fInitialDriveMaxFlatVel")) -- Remet la vitesse max par défaut
+        end
+    end
 end)
 
 Citizen.CreateThread(function()
@@ -58,7 +65,7 @@ Citizen.CreateThread(function()
             local playerPed = GetPlayerPed(-1)
             if IsPedInAnyVehicle(playerPed, false) then
                 local vehicle = GetVehiclePedIsIn(playerPed, false)
-                SetEntityMaxSpeed(vehicle, speedLimit / 3.6) -- conversion de km/h a m/s
+                SetEntityMaxSpeed(vehicle, speedLimit / 3.6) -- conversion from km/h to m/s
             end
         end
     end

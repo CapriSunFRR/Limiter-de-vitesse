@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Capri'
+author 'Your Name'
 description 'Script Limiteur de Vitesse'
 version '1.0.0'
 
